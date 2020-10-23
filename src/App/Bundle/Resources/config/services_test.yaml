@@ -1,0 +1,4 @@
+services:
+  AppInWeb\DomainExtraLibrary\Tests\FakerProvider\UuidObjectFakerProvider:
+    tags:
+      - { name: nelmio_alice.faker.provider }

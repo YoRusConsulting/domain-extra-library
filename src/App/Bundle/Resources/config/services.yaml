@@ -1,0 +1,8 @@
+services:
+    AppInWeb\DomainExtraLibrary\Domain\EventListener\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
+
+    AppInWeb\DomainExtraLibrary\Domain\EventListener\JsonRequestListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller}
