@@ -49,19 +49,19 @@ Exemple de config :
 
 ```
 logit.constraint.validator.stock_definition:
-        class: \Logit\DomainExtraLibrary\Infra\Validator\Constraint\ResourceMustExistConstraintValidator
+        class: \AppInWeb\DomainExtraLibrary\Infra\Validator\Constraint\ResourceMustExistConstraintValidator
         arguments:
-            - '@Logit\Stock\Infra\Repository\DoctrineORM\StockDefinitionReader'
+            - '@AppInWeb\Stock\Infra\Repository\DoctrineORM\UserReader'
         tags:
-            - { name: validator.constraint_validator, alias: logit.constraint.stock_definition }
+            - { name: validator.constraint_validator, alias: appinweb.constraint.user }
 ```
 
 Exemple d'utilisation : 
 
 ```
-- Logit\DomainExtraLibrary\Infra\Validator\Constraint\ResourceMustExistConstraint:
-	reader: logit.constraint.stock_definition
-	resource: StockDefinition
+- AppInWeb\DomainExtraLibrary\Infra\Validator\Constraint\ResourceMustExistConstraint:
+	reader: appinweb.constraint.user
+	resource: User
 	code: 400
 	groups: [Resource]
 ```
