@@ -1,8 +1,8 @@
-# AppInWeb domain extra library
+# Alten domain extra library
 
 ## Contraintes de validation
 
-Présentes dans _AppInWeb\DomainExtraLibrary\Infra\Validator\Constraint_, les contraites de validation sont utilisées dans les différents domaines et permettent de valider les données reçues par les contrôleurs. 
+Présentes dans _Alten\DomainExtraLibrary\Infra\Validator\Constraint_, les contraites de validation sont utilisées dans les différents domaines et permettent de valider les données reçues par les contrôleurs. 
 
 Les contraintes sont paramètrables ce qui permet de les utiliser dans différents domaines.
 Certains paramètres possèdent des valeurs par défaut, ce qui permet d'alléger leur configuration.
@@ -49,19 +49,19 @@ Exemple de config :
 
 ```
 logit.constraint.validator.stock_definition:
-        class: \AppInWeb\DomainExtraLibrary\Infra\Validator\Constraint\ResourceMustExistConstraintValidator
+        class: \Logit\DomainExtraLibrary\Infra\Validator\Constraint\ResourceMustExistConstraintValidator
         arguments:
-            - '@AppInWeb\Stock\Infra\Repository\DoctrineORM\UserReader'
+            - '@Logit\Stock\Infra\Repository\DoctrineORM\StockDefinitionReader'
         tags:
-            - { name: validator.constraint_validator, alias: appinweb.constraint.user }
+            - { name: validator.constraint_validator, alias: logit.constraint.stock_definition }
 ```
 
 Exemple d'utilisation : 
 
 ```
-- AppInWeb\DomainExtraLibrary\Infra\Validator\Constraint\ResourceMustExistConstraint:
-	reader: appinweb.constraint.user
-	resource: User
+- Logit\DomainExtraLibrary\Infra\Validator\Constraint\ResourceMustExistConstraint:
+	reader: logit.constraint.stock_definition
+	resource: StockDefinition
 	code: 400
 	groups: [Resource]
 ```

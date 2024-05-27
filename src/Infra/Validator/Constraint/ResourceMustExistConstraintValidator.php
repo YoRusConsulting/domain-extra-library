@@ -1,10 +1,10 @@
 <?php
 
-namespace AppInWeb\DomainExtraLibrary\Infra\Validator\Constraint;
+namespace YoRus\DomainExtraLibrary\Infra\Validator\Constraint;
 
-use AppInWeb\DomainExtraLibrary\Domain\EventListener\ExceptionListener;
-use AppInWeb\DomainExtraLibrary\Domain\Exception\ResourceNotFoundException;
-use AppInWeb\DomainExtraLibrary\Infra\Repository\RequiredFinderRepositoryInterface;
+use YoRus\DomainExtraLibrary\Domain\EventListener\ExceptionListener;
+use YoRus\DomainExtraLibrary\Domain\Exception\ResourceNotFoundException;
+use YoRus\DomainExtraLibrary\Infra\Repository\RequiredFinderRepositoryInterface;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -33,7 +33,7 @@ class ResourceMustExistConstraintValidator extends ConstraintValidator
     /**
      * {@inheritdoc}
      */
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof ResourceMustExistConstraint) {
             throw new UnexpectedTypeException($constraint, ResourceMustExistConstraint::class);
@@ -49,7 +49,7 @@ class ResourceMustExistConstraintValidator extends ConstraintValidator
             $this->context->buildViolation($constraint->messageShouldExists)
                 ->setParameter('{{ id }}', $value)
                 ->setParameter('{{ resource }}', $constraint->resource)
-                ->setCode(ExceptionListener::HTTP_CONTEXT_PREFIX.$constraint->code)
+                ->setCode(ExceptionListener::HTTP_CONTEXT_PREFIX . $constraint->code)
                 ->addViolation();
 
             // No need to continue the validation, the uuid is not correct and will crash the process
@@ -63,7 +63,7 @@ class ResourceMustExistConstraintValidator extends ConstraintValidator
             $this->context->buildViolation($constraint->messageShouldExists)
                 ->setParameter('{{ id }}', $value)
                 ->setParameter('{{ resource }}', $constraint->resource)
-                ->setCode(ExceptionListener::HTTP_CONTEXT_PREFIX.$constraint->code)
+                ->setCode(ExceptionListener::HTTP_CONTEXT_PREFIX . $constraint->code)
                 ->addViolation();
         }
     }

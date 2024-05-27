@@ -1,8 +1,8 @@
 <?php
 
-namespace AppInWeb\DomainExtraLibrary\Infra\Repository;
+namespace YoRus\DomainExtraLibrary\Infra\Repository;
 
-use AppInWeb\DomainExtraLibrary\Domain\Exception\ResourceNotFoundException;
+use YoRus\DomainExtraLibrary\Domain\Exception\ResourceNotFoundException;
 use Ramsey\Uuid\UuidInterface;
 
 /**
@@ -17,5 +17,5 @@ interface RequiredFinderRepositoryInterface
      *
      * @throws ResourceNotFoundException
      */
-    public function findRequired(UuidInterface $uuid);
+    public function findRequired(UuidInterface $uuid): mixed;
 }

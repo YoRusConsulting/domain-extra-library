@@ -1,10 +1,11 @@
 <?php
 
-namespace AppInWeb\DomainExtraLibrary\Domain\EventListener;
+namespace YoRus\DomainExtraLibrary\Domain\EventListener;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 /**
@@ -12,41 +13,40 @@ use Symfony\Component\Messenger\Exception\ValidationFailedException;
  */
 class ExceptionListener
 {
-    const HTTP_ERROR_CODES = [
+    public const HTTP_ERROR_CODES = [
         Response::HTTP_NOT_FOUND,
         Response::HTTP_BAD_REQUEST,
         Response::HTTP_CONFLICT,
     ];
 
-    const HTTP_CONTEXT_PREFIX = 'HTTP.';
+    public const HTTP_CONTEXT_PREFIX = 'HTTP.';
 
     /**
-     * @param GetResponseForExceptionEvent $event event
+     * @param ExceptionEvent $event event
      *
      * @return void
      */
-    public function onKernelException(GetResponseForExceptionEvent $event): void
+    public function onKernelException(ExceptionEvent $event): void
     {
-        $e = $event->getException();
+        $e = $event->getThrowable();
 
-        if (false === $e instanceof ValidationFailedException) {
+        if (false === $e instanceof ValidationFailedException && false === $e instanceof HandlerFailedException) {
             return;
         }
 
         $mainErrorCode = null;
         $mainErrorMessage = null;
 
-        $violations = $e->getViolations();
+        $nestedExceptions = $e->getNestedExceptions();
         $errors = [];
 
-        foreach ($violations as $violation) {
+        foreach ($nestedExceptions as $violation) {
             $errors[] = [
-                'path' => $violation->getPropertyPath(),
                 'message' => $violation->getMessage(),
             ];
 
             if (null !== $violation->getCode() && null === $mainErrorCode) {
-                if (false !== strpos($violation->getCode(), self::HTTP_CONTEXT_PREFIX)) {
+                if (str_contains($violation->getCode(), self::HTTP_CONTEXT_PREFIX)) {
                     $code = str_replace(self::HTTP_CONTEXT_PREFIX, '', $violation->getCode());
                     if (in_array($code, self::HTTP_ERROR_CODES)) {
                         $mainErrorCode = $code;

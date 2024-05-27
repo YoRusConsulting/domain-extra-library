@@ -1,6 +1,6 @@
 <?php
 
-namespace AppInWeb\DomainExtraLibrary\Infra\Doctrine\Type;
+namespace YoRus\DomainExtraLibrary\Infra\Doctrine\Type;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
@@ -14,9 +14,9 @@ class JsonbType extends Type
     /**
      * {@inheritdoc}
      */
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
-        return $platform->getJsonTypeDeclarationSQL($fieldDeclaration);
+        return $platform->getJsonTypeDeclarationSQL($column);
     }
 
     /**
@@ -24,7 +24,7 @@ class JsonbType extends Type
      *
      * @throws ConversionException
      */
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): mixed
     {
         if (null === $value) {
             return null;
@@ -76,6 +76,6 @@ class JsonbType extends Type
      */
     public function requiresSQLCommentHint(AbstractPlatform $platform): bool
     {
-        return !$platform->hasNativeJsonType();
+        return !$platform->hasDoctrineTypeMappingFor('json');
     }
 }

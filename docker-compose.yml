@@ -1,0 +1,8 @@
+version: '3.3'
+services:
+  yorus-domain-extra-library-app:
+    build:
+      context: .
+    container_name: yorus-domain-extra-library-app
+    volumes:
+      - './:/var/www/html'

@@ -1,6 +1,6 @@
 <?php
 
-namespace AppInWeb\DomainExtraLibrary\Infra\Validator\Constraint;
+namespace YoRus\DomainExtraLibrary\Infra\Validator\Constraint;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraint;
@@ -12,22 +12,22 @@ use Symfony\Component\Validator\Exception\InvalidArgumentException;
 class ResourceMustExistConstraint extends Constraint
 {
     /** @var string */
-    public $messageShouldExists = '{{ resource }} with identifier `{{ id }}` does not exist.';
+    public string $messageShouldExists = '{{ resource }} with identifier `{{ id }}` does not exist.';
+
+    /**
+     * @var string|null
+     */
+    public ?string $reader = null;
 
     /**
      * @var string
      */
-    public $reader;
-
-    /**
-     * @var string
-     */
-    public $resource = 'Resource';
+    public string $resource = 'Resource';
 
     /**
      * @var int
      */
-    public $code = Response::HTTP_NOT_FOUND;
+    public int $code = Response::HTTP_NOT_FOUND;
 
     /**
      * {@inheritdoc}
@@ -42,7 +42,7 @@ class ResourceMustExistConstraint extends Constraint
      */
     public function validatedBy(): string
     {
-        if (null === $this->reader) {
+        if (!$this->reader) {
             throw new InvalidArgumentException('The `reader` option is mandatory to specify the validator service');
         }
 

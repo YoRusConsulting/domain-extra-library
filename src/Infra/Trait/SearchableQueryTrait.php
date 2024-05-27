@@ -1,6 +1,8 @@
 <?php
 
-namespace AppInWeb\DomainExtraLibrary\Infra\Traits;
+namespace YoRus\DomainExtraLibrary\Infra\Trait;
+
+use InvalidArgumentException;
 
 /**
  * Class SearchableQueryTrait
@@ -10,32 +12,38 @@ trait SearchableQueryTrait
     /**
      * @var string[]
      */
-    protected $managedProperties = [];
+    protected array $managedProperties = [];
 
     /**
      * @var mixed[]
      */
-    protected $payload;
+    protected array $payload;
 
     /**
      * @var bool
      */
-    protected $hasParameters = false;
+    protected bool $hasParameters = false;
 
     /**
      * @param string $property
      *
      * @return null|mixed
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function getProperty(string $property)
+    public function getProperty(string $property): mixed
     {
         if (property_exists($this, $property)) {
             return $this->{$property};
         }
 
-        throw new \InvalidArgumentException(sprintf('No property `%s` defined in `%s` class', $property, get_class($this)));
+        throw new InvalidArgumentException(
+            sprintf(
+                'No property `%s` defined in `%s` class',
+                $property,
+                get_class($this)
+            )
+        );
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace AppInWeb\DomainExtraLibrary\Tests\FakerProvider;
+namespace YoRus\DomainExtraLibrary\Infra\Test\FakerProvider;
 
 use Ramsey\Uuid\UuidInterface;
 use Ramsey\Uuid\Uuid;

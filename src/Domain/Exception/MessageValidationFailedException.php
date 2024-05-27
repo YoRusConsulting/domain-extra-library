@@ -1,6 +1,6 @@
 <?php
 
-namespace AppInWeb\DomainExtraLibrary\Domain\Exception;
+namespace YoRus\DomainExtraLibrary\Domain\Exception;
 
 /**
  * MessageValidationFailedException

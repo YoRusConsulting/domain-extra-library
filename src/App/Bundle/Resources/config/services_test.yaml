@@ -1,4 +1,4 @@
 services:
-  AppInWeb\DomainExtraLibrary\Tests\FakerProvider\UuidObjectFakerProvider:
+  YoRus\DomainExtraLibrary\Infra\Test\FakerProvider\UuidObjectFakerProvider:
     tags:
       - { name: nelmio_alice.faker.provider }
