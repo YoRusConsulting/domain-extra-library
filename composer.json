@@ -1,7 +1,7 @@
 {
     "name": "yorus/domain-extra-library",
     "type": "library",
-    "license": "private",
+    "license": "MIT",
     "description": "YoRus Consulting - Common PHP components",
     "require": {
         "php": ">=8.0",
