@@ -25,7 +25,14 @@ yorus_domain_extra_library:
   namespace: YourNamespace\
 ```
 
-This configuration will be used to generate the classes (DDD/CQRS generator) with the correct namespace.
+This configuration will be used to generate the classes (DDD/CQRS generator) with the correct namespace
+(and only for the generator scope)
+
+Activate the library in the `config/bundles.php` file of the project.
+
+```php
+YoRus\DomainExtraLibrary\App\Bundle\YorusDomainExtraLibraryBundle::class => ['all' => true],
+```
 
 ## Usage
 
@@ -202,7 +209,7 @@ The command will ask you to enter the following information:
 - The name of the domain to manage
 - The list of parameters to manage in the entity
 
-The parameters are the following syntax:
+The parameters have the following syntax:
 ```
 name:type
 name*:type
@@ -222,3 +229,4 @@ description:string
 ```
 
 If no type is provided, the parameter will be managed as a string.
+It must have one and only one primary key.
