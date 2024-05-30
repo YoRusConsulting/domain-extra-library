@@ -1,6 +1,6 @@
 <?php
 
-namespace YoRus\DomainExtraLibrary\Infra\Repository;
+namespace YoRus\DomainExtraLibrary\Domain\Repository;
 
 use YoRus\DomainExtraLibrary\Domain\Exception\ResourceNotFoundException;
 use Ramsey\Uuid\UuidInterface;

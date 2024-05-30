@@ -1,0 +1,25 @@
+services:
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    bind:
+      $projectDir: '%kernel.project_dir%'
+
+  YoRus\DomainExtraLibrary\Infra\Generator\EntityGenerator: ~
+  YoRus\DomainExtraLibrary\Infra\Generator\ControllerGenerator: ~
+  YoRus\DomainExtraLibrary\Infra\Generator\QueryGenerator: ~
+  YoRus\DomainExtraLibrary\Infra\Generator\RepositoryGenerator: ~
+  YoRus\DomainExtraLibrary\Infra\Generator\QueryHandlerGenerator: ~
+  YoRus\DomainExtraLibrary\Infra\Generator\Generator:
+    arguments:
+      - '@YoRus\DomainExtraLibrary\Infra\Generator\EntityGenerator'
+      - '@YoRus\DomainExtraLibrary\Infra\Generator\ControllerGenerator'
+      - '@YoRus\DomainExtraLibrary\Infra\Generator\QueryGenerator'
+      - '@YoRus\DomainExtraLibrary\Infra\Generator\RepositoryGenerator'
+      - '@YoRus\DomainExtraLibrary\Infra\Generator\QueryHandlerGenerator'
+
+  YoRus\DomainExtraLibrary\UI\ConsoleCommand\DDD\CQRS\GenerateConsoleCommand:
+    arguments:
+      - '@YoRus\DomainExtraLibrary\Infra\Generator\Generator'
+      - '@yorus_domain_extra_library.bundle_configuration'
+    tags: [ 'console.command' ]
